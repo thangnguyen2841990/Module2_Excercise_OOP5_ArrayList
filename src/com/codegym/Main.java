@@ -1,5 +1,6 @@
 package com.codegym;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -8,26 +9,32 @@ public class Main {
     public static void main(String[] args) {
         int choice = -1;
         TeacherManagement teacherManagement = new TeacherManagement();
-        menu();
+        try {
+            teacherManagement.readFiles("salary.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         do {
+            menu();
             System.out.println("Enter Menu: ");
             choice = scanner.nextInt();
             switch (choice) {
                 case 1: {
-                    teacherManagement.displayAllTeachers();
+                    System.out.println("Danh sách giáo viên");
+                    int size = teacherManagement.getTeachers().size();
+                    if (size == 0){
+                        System.out.println("Không có giáo viên nào để hiện thị");
+                    }else {
+                        teacherManagement.displayAllTeachers();
+                    }
                     break;
                 }
                 case 2: {
                     System.out.println("----Thêm giáo viên----");
-                    System.out.println("Nhập số lượng giáo viên muốn nhâp: ");
-                    int n = scanner.nextInt();
                     Salary newTeacher;
-                    for (int i = 0; i < n; i++) {
-                        System.out.println("Giáo viên thứ: "+ (i+1));
-                        newTeacher = inputTeacherInfo();
-                        teacherManagement.addNewTeacher(newTeacher);
-                        System.out.println("Thêm giáo viên thành công!");
-                    }
+                    newTeacher = inputTeacherInfo();
+                    teacherManagement.addNewTeacher(newTeacher);
+                    System.out.println("Thêm giáo viên thành công!");
                     break;
                 }
                 case 3: {
@@ -35,6 +42,11 @@ public class Main {
                     teacherManagement.teacherSalary8M();
                     break;
                 }
+            }
+            try {
+                teacherManagement.writerTofiles("salary.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         } while (choice != 4);
     }

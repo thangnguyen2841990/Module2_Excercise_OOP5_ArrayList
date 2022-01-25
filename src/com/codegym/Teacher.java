@@ -36,6 +36,6 @@ public class Teacher {
 
     @Override
     public String toString() {
-        return "Họ và tên: " + this.name + ", sinh nhật: " + this.birthDay + ", quê quán: "+ this.homeTown;
+        return this.name + ", " + this.birthDay + ", "+ this.homeTown;
     }
 }

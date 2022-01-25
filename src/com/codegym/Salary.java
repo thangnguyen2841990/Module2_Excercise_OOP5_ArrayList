@@ -1,10 +1,10 @@
 package com.codegym;
 
 public class Salary {
+    private Teacher teacher;
     private double basicSalary;
     private double bonus;
     private double fine;
-    private Teacher teacher;
 
     public Salary(double basicSalary, double bonus, double fine, Teacher teacher) {
         this.basicSalary = basicSalary;
@@ -50,7 +50,7 @@ public class Salary {
 
     @Override
     public String toString() {
-        return teacher.toString()+ ", Lương cơ bản: " + this.basicSalary + ", thưởng: "+this.bonus + ", phạt: "+ this.fine+
-                "\n Lương thực lĩnh: " + getTotalSalary();
+        return teacher.toString()+ ", " + this.basicSalary + ", "+this.bonus + ", "+ this.fine+
+                ", " + getTotalSalary();
     }
 }
