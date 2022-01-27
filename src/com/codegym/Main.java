@@ -10,8 +10,8 @@ public class Main {
         int choice = -1;
         TeacherManagement teacherManagement = new TeacherManagement();
         try {
-            teacherManagement.readFiles("salary.txt");
-        } catch (IOException e) {
+            teacherManagement.readerFile("salary1.txt");
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         do {
@@ -44,7 +44,7 @@ public class Main {
                 }
             }
             try {
-                teacherManagement.writerTofiles("salary.txt");
+                teacherManagement.writerFile(teacherManagement.getTeachers(),"salary1.txt");
             } catch (IOException e) {
                 e.printStackTrace();
             }

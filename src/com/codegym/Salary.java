@@ -1,6 +1,8 @@
 package com.codegym;
 
-public class Salary {
+import java.io.Serializable;
+
+public class Salary implements Serializable {
     private Teacher teacher;
     private double basicSalary;
     private double bonus;

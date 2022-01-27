@@ -2,6 +2,7 @@ package com.codegym;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TeacherManagement {
     private ArrayList<Salary> teachers;
@@ -36,32 +37,42 @@ public class TeacherManagement {
             }
         }
     }
-    public void writerTofiles(String path) throws IOException {
-        FileWriter fileWriter = new FileWriter(path);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        for (Salary teacher: teachers) {
-            bufferedWriter.write(teacher.toString()+"\n");
-        }
-        bufferedWriter.close();
-        fileWriter.close();
+    public void writerFile(List<Salary> teachers, String path) throws IOException {
+        OutputStream os = new FileOutputStream(path);
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        oos.writeObject(teachers);
     }
-    public void readFiles(String path) throws IOException {
-        FileReader fileReader = new FileReader(path);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String line = null;
-        while ((line = bufferedReader.readLine()) != null){
-            String [] lines = line.split(",");
-            String name = lines[0].trim();
-            String birthDay = lines[1].trim();
-            String homeTown = lines[2].trim();
-            Teacher teacher = new Teacher(name,birthDay,homeTown);
-            double basicSalary = Double.parseDouble(lines[3].trim());
-            double bonus = Double.parseDouble(lines[4].trim());
-            double fine = Double.parseDouble(lines[5].trim());
-            Salary teacherSalary = new Salary(basicSalary,bonus,fine,teacher);
-            this.teachers.add(teacherSalary);
-        }
-        bufferedReader.close();
-        fileReader.close();
+    public void readerFile(String path) throws IOException, ClassNotFoundException {
+        InputStream is = new FileInputStream(path);
+        ObjectInputStream ois = new ObjectInputStream(is);
+        this.teachers = (ArrayList<Salary>) ois.readObject();
     }
+//    public void writerTofiles(String path) throws IOException {
+//        FileWriter fileWriter = new FileWriter(path);
+//        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//        for (Salary teacher: teachers) {
+//            bufferedWriter.write(teacher.toString()+"\n");
+//        }
+//        bufferedWriter.close();
+//        fileWriter.close();
+//    }
+//    public void readFiles(String path) throws IOException {
+//        FileReader fileReader = new FileReader(path);
+//        BufferedReader bufferedReader = new BufferedReader(fileReader);
+//        String line = null;
+//        while ((line = bufferedReader.readLine()) != null){
+//            String [] lines = line.split(",");
+//            String name = lines[0].trim();
+//            String birthDay = lines[1].trim();
+//            String homeTown = lines[2].trim();
+//            Teacher teacher = new Teacher(name,birthDay,homeTown);
+//            double basicSalary = Double.parseDouble(lines[3].trim());
+//            double bonus = Double.parseDouble(lines[4].trim());
+//            double fine = Double.parseDouble(lines[5].trim());
+//            Salary teacherSalary = new Salary(basicSalary,bonus,fine,teacher);
+//            this.teachers.add(teacherSalary);
+//        }
+//        bufferedReader.close();
+//        fileReader.close();
+//    }
 }

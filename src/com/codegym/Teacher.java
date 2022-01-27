@@ -1,5 +1,8 @@
 package com.codegym;
-public class Teacher {
+
+import java.io.Serializable;
+
+public class Teacher implements Serializable {
     private String name;
     private String birthDay;
     private String homeTown;
